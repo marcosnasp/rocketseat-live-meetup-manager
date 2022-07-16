@@ -18,46 +18,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 public class RegistrationServiceTest {
 
-    RegistrationService registrationService;
+	RegistrationService registrationService;
 
-    @MockBean
-    RegistrationRepository repository;
+	@MockBean
+	RegistrationRepository repository;
 
+	@BeforeEach
+	public void setUp() {
+		this.registrationService = new RegistrationServiceImpl(repository);
+	}
 
-    @BeforeEach
-    public void setUp() {
-        this.registrationService = new RegistrationServiceImpl(repository);
-    }
+	@Test
+	@DisplayName("Should save an registration")
+	public void saveRegistration() {
 
-    @Test
-    @DisplayName("Should save an registration")
-    public void saveRegistration() {
+		Registration registration = createValidRegistration();
 
-        Registration registration = createValidRegistration();
+		Mockito.when(repository.existsByRegistration(Mockito.anyString())).thenReturn(false);
+		Mockito.when(repository.save(registration)).thenReturn(createValidRegistration());
 
-        Mockito.when(repository.existsByRegistration(Mockito.anyString())).thenReturn(false);
-        Mockito.when(repository.save(registration)).thenReturn(createValidRegistration());
+		Registration savedRegistration = registrationService.save(registration);
 
-        Registration savedRegistration = registrationService.save(registration);
+		assertThat(savedRegistration.getId()).isEqualTo(101);
+		assertThat(savedRegistration.getName()).isEqualTo("Ana Neri");
+		assertThat(savedRegistration.getDateOfRegistration()).isEqualTo("01/04/2022");
+		assertThat(savedRegistration.getRegistration()).isEqualTo("001");
+	}
 
-        assertThat(savedRegistration.getId()).isEqualTo(101);
-        assertThat(savedRegistration.getName()).isEqualTo("Ana Neri");
-        assertThat(savedRegistration.getDateOfRegistration()).isEqualTo("01/04/2022");
-        assertThat(savedRegistration.getRegistration()).isEqualTo("001");
-    }
-
-
-
-
-
-
-    private Registration createValidRegistration() {
-        return Registration.builder()
-                .id(101)
-                .name("Ana Neri")
-                .dateOfRegistration("01/04/2022")
-                .registration("001")
-                .build();
-    }
+	private Registration createValidRegistration() {
+		return Registration.builder().id(101).name("Ana Neri").dateOfRegistration("01/04/2022").registration("001")
+				.build();
+	}
 
 }

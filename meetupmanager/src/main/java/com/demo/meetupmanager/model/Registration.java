@@ -16,21 +16,21 @@ import java.util.List;
 @Table
 public class Registration {
 
-    @Id
-    @Column(name = "registration_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@Column(name = "registration_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "person_name")
-    private String name;
+	@Column(name = "person_name")
+	private String name;
 
-    @Column(name = "date_of_registration")
-    private String dateOfRegistration;
+	@Column(name = "date_of_registration")
+	private String dateOfRegistration;
 
-    @Column
-    private String registration;
+	@Column
+	private String registration;
 
-    @OneToMany(mappedBy = "registration")
-    private List<Meetup> meetups;
+	@OneToMany(mappedBy = "registration")
+	private List<Meetup> meetups;
 
 }

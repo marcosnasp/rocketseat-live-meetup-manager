@@ -13,24 +13,22 @@ import javax.validation.Valid;
 @RequestMapping("/api/registration")
 public class RegistrationController {
 
-    private RegistrationService registrationService;
+	private RegistrationService registrationService;
 
-    private ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
+	public RegistrationController(RegistrationService registrationService, ModelMapper modelMapper) {
+		this.registrationService = registrationService;
+		this.modelMapper = modelMapper;
+	}
 
-    public RegistrationController(RegistrationService registrationService, ModelMapper modelMapper) {
-        this.registrationService = registrationService;
-        this.modelMapper = modelMapper;
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public RegistrationDTO create(@RequestBody @Valid RegistrationDTO dto) {
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public RegistrationDTO create(@RequestBody @Valid RegistrationDTO dto) {
+		Registration entity = modelMapper.map(dto, Registration.class);
+		entity = registrationService.save(entity);
 
-        Registration entity = modelMapper.map(dto, Registration.class);
-        entity = registrationService.save(entity);
-
-        return modelMapper.map(entity, RegistrationDTO.class);
-    }
+		return modelMapper.map(entity, RegistrationDTO.class);
+	}
 }
-

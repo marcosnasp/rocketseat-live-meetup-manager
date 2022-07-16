@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class RegisteredMeetupDTO {
 
-    private Boolean registered;
+	private Boolean registered;
 }
-

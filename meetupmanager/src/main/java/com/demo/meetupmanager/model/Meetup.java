@@ -14,20 +14,20 @@ import javax.persistence.*;
 @Entity
 public class Meetup {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column
-    private String event;
+	@Column
+	private String event;
 
-    @JoinColumn(name = "id_registration")
-    @ManyToOne
-    private Registration registration;
+	@JoinColumn(name = "id_registration")
+	@ManyToOne
+	private Registration registration;
 
-    @Column
-    private String meetupDate;
+	@Column
+	private String meetupDate;
 
-    @Column
-    private Boolean registered;
+	@Column
+	private Boolean registered;
 }

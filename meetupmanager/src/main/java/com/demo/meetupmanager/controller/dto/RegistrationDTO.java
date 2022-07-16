@@ -13,15 +13,14 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class RegistrationDTO {
 
-    private Integer id;
+	private Integer id;
 
-    @NotEmpty
-    private String name;
+	@NotEmpty
+	private String name;
 
-    @NotEmpty
-    private String dateOfRegistration;
+	@NotEmpty
+	private String dateOfRegistration;
 
-    @NotEmpty
-    private String registration;
+	@NotEmpty
+	private String registration;
 }
-

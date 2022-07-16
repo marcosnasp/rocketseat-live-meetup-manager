@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
 
+	RegistrationRepository repository;
 
-    RegistrationRepository repository;
+	public RegistrationServiceImpl(RegistrationRepository repository) {
+		this.repository = repository;
+	}
 
-    public RegistrationServiceImpl(RegistrationRepository repository) {
-        this.repository = repository;
-    }
-
-    public Registration save(Registration registration) {
-        if (repository.existsByRegistration(registration.getRegistration())) {
-            throw new BusinessException("Registration Already created");
-        }
-        return repository.save(registration);
-    }
+	public Registration save(Registration registration) {
+		if (repository.existsByRegistration(registration.getRegistration())) {
+			throw new BusinessException("Registration Already created");
+		}
+		return repository.save(registration);
+	}
 }
